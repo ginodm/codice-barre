@@ -4,7 +4,7 @@ var cordova = require('cordova');
 
 var barcode = {
 	getScannedCode : function(successCallback, errorCallback){
-	cordova.exec(successCallback, errorCallback,'Barscan', 'getScannedCode', []);//ImeiPlugin ->stringa che identifica 											      //l'oggetto e il rispettivo metodo richiamato
+	cordova.exec(successCallback, errorCallback,'Barscan', 'getScannedCode', []);// Barscan->stringa che identifica 											      //l'oggetto e il rispettivo metodo richiamato
 } 											//[] e relativi eventuali parametri
 };
 
