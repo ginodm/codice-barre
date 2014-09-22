@@ -9,7 +9,7 @@ version="1.0.1">
 <engines>
 <engine name="cordova" version="3.5.1" />
 </engines>
-<js-module src="www/barcode.js" name="barcode">
+<js-module src="www/barscan.js" name="barcode">
 <clobbers target="barcode" />
 </js-module>
 <platform name="android">
