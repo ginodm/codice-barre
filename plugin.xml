@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.equipnet.barscan"
-version="1.0.1">
-<name>Barcode</name>
+version="1.0.2">
+<name>barscan</name>
 <author>A. Perugini</author>
 <description>Acquisizione barcode.</description>
-<keywords>barcode</keywords>
+<keywords>barscan</keywords>
 <license></license>
 <engines>
 <engine name="cordova" version="3.5.1" />
