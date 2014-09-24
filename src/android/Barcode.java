@@ -1,4 +1,4 @@
-package com.equipnet.plugin.barcode;
+package com.equipnet.plugin;
 
 
 import org.json.JSONArray; 
