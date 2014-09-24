@@ -9,8 +9,8 @@ version="1.0.3">
 <engines>
 <engine name="cordova" version="3.5.1" />
 </engines>
-<js-module src="www/barcode.js" name="barcode">
-<clobbers target="barcode" />
+<js-module src="www/barcode.js" name="Barcode">
+<clobbers target="Barcode" />
 </js-module>
 <platform name="android">
 <!-- android-specific elements -->
