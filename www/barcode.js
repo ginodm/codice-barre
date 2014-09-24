@@ -1,4 +1,4 @@
-/** 
+cordova.define("com.equipnet.plugin.barcode.Barcode", function(require, exports, module) { /** 
  * 
  * @return Instance of Barcode 
  */ 
@@ -14,3 +14,5 @@ if(!window.plugins) {
 if (!window.plugins.Barcode) { 
     window.plugins.Barcode = new Barcode(); 
 }
+
+});
