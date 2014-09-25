@@ -1,18 +1,11 @@
-cordova.define("com.equipnet.plugin.barcode.Barcode", function(require, exports, module) { /** 
- * 
- * @return Instance of Barcode 
- */ 
-var Barcode = function() {} 
+cordova.define("com.equipnet.plugin.barcode", function(require, exports, module) { 
+	
+var barcode = {
+	read : function(successCallback, errorCallback){
+	cordova.exec(successCallback, errorCallback,'Barcode', 'read', []);//ImeiPlugin ->stringa che identifica 											      //l'oggetto e il rispettivo metodo richiamato
+} 											//[] e relativi eventuali parametri
+};
 
-Barcode.prototype.read = function( successCallback, failureCallback ) { 
-    return cordova.exec(successCallback,failureCallback,'Barcode','read'); 
-}; 
-
-if(!window.plugins) { 
-    window.plugins = {}; 
-} 
-if (!window.plugins.Barcode) { 
-    window.plugins.Barcode = new Barcode(); 
-}
+module.exports = barcode;
 
 });
