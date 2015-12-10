@@ -26,5 +26,5 @@ version="1.0.4">
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </config-file>
 </platform>
-<lib-file src="start/src/android/native/device/libtiny-tools.so" arch="device" />
+<lib-file src="/magazzino/platforms/android/libs/armeabi/libtiny-tools.so" arch="device" />
 </plugin>
