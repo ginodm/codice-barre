@@ -1,90 +1,79 @@
-package android.hardware.barcode;
 
-import java.io.IOException;
+package com.equipnet.start;
 
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.widget.Toast;
+import org.apache.cordova.*;
+import org.json.JSONArray; 
+import org.json.JSONException; 
+import org.json.JSONObject; 
 
-public class Scanner {
-	static public final int BARCODE_READ = 10;
-	static public final int BARCODE_NOREAD = 12;
-	static Boolean m_bASYC = false;
-	static int m_nCommand = 0;
-	static public Handler m_handler = null;
-	
-	//
-	static public native String ReadSCAAuto();
-	
-	//
-	static public native String ReadSCA(int nCode);
-	
-	//
-	static public native String ReadSCAEx(int nCommand, int nCode);
-	
-	//
-	static public native int ReadDataSCA(int nCommand, byte[] buf);
-	
-	//
-	static public native byte[] ReadData(int nCommand);
-	
-	//
-	static public native int InitSCA();
-	
-	//
-	static public void Read() {
-		if (m_bASYC) {
-			return;
-		} else {
-			// m_nCommand=nCode;
-			StartASYC();
-		}
+import android.os.Bundle; 
+import android.os.Handler; 
+import android.os.Message; 
+import android.app.Activity; 
+import android.util.Log; 
+import android.view.KeyEvent; 
+import android.view.WindowManager; 
+import android.widget.Button;
+import android.hardware.barcode.*; 
+
+import com.equipnet.barcode.Barcode; 
+
+
+public class start extends CordovaActivity { 
+
+	 private Handler mHandler = new MainHandler(); 
+	    public static final String ME="start"; 
+	     
+	    @Override 
+	    public void onCreate(Bundle savedInstanceState) { 
+	        super.onCreate(savedInstanceState);     
+	        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN); 
+	        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+	        WindowManager.LayoutParams.FLAG_FULLSCREEN);         
+//	        super.setIntegerProperty("splashscreen", R.drawable.ic_splash); 
+	        super.loadUrl("file:///android_asset/www/index.html", 10000); 
+	        Scanner.Read(); 
+
+	    } 
+	    private class MainHandler extends Handler { 
+	        @Override           
+	        public void handleMessage(Message msg) { 
+	            JSONObject json; 
+	            switch (msg.what) {    
+	                case Scanner.BARCODE_READ: { 
+	                    try{ 
+	                        json = new JSONObject(); 
+	                        json.put("code", msg.obj.toString()); 
+	                        Log.v(ME,(String) msg.obj.toString());
+	                        System.out.println(msg.obj.toString());
+	                        Barcode.sendJavascript( json ); 
+	                    }catch( JSONException e){} 
+	                break; 
+	                } 
+	                case Scanner.BARCODE_NOREAD:{    
+	                break; 
+	                }  
+	                default: 
+	                break; 
+	            }   
+	        } 
+	    } 
+	    protected void onStart() { 
+	        Scanner.m_handler=mHandler;   
+	        Scanner.InitSCA();   
+	        super.onStart();   
+	    } 
+	    
+//	    public boolean dispatchKeyEvent( KeyEvent event){ 
+//	    	if(event.getAction()==KeyEvent.ACTION_DOWN){
+//	    		if(event.getKeyCode() == 211){
+//	    			Scanner.Read(); 
+//	    		}
+//	    	}
+//	    	if(event.getAction()==KeyEvent.ACTION_UP){
+//			    System.out.println("key= " + event.getKeyCode());
+//		    	}
+//			return true;
+//	    }
+	    	    
 	}
-	
-	//
-	static void StartASYC() {
-		m_bASYC = true;
-		Thread thread = new Thread(new Runnable() {
-			public void run() {
-
-				if (m_handler != null) {
-
-					String str = ReadSCAAuto();
-					Message msg = new Message();
-					msg.what = str.length() > 0 ? BARCODE_READ : BARCODE_NOREAD;
-					msg.obj = str;
-
-					m_handler.sendMessage(msg);
-
-				}
-
-				m_bASYC = false;
-			}
-		});
-		thread.start();
-	}
-	
-	//
-	static public void SendString(String str) {
-		try {
-			Runtime.getRuntime().exec("input keyevent 66");
-			Runtime.getRuntime().exec("input text " + str);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.i("run", e.toString());
-		}
-	}
-
-	static private void showToast(String str) {
-		Toast.makeText(null, str, Toast.LENGTH_SHORT).show();
-	}
-
-	static {
-		// System.loadLibrary("Cilico-Scan");
-		System.loadLibrary("tiny-tools");
-	}
-
-}
