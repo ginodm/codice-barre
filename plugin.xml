@@ -7,7 +7,7 @@ version="1.0.4">
 <keywords>barcode</keywords>
 <license></license>
 <engines>
-<engine name="cordova" version="3.5.1" />
+<engine name="cordova" version="6.1.1" />
 </engines>
 <js-module src="www/barcode.js" name="barcode">
 <clobbers target="barcode" />
