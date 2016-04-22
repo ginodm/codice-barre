@@ -1,5 +1,3 @@
-cordova.define("com.equipnet.barcode.barcode", function(require, exports, module) { 
-
 var cordova = require('cordova');
 
 var barcode = {
@@ -9,8 +7,3 @@ var barcode = {
 };
 
 module.exports = barcode;
-
-});
-
-
-
